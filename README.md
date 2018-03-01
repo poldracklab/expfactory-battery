@@ -1,7 +1,5 @@
 # Experiment Factory Battery
 
-**LEGACY** This repository is no longer actively maintained, and exists to support current implementations. We encourage users to create reproducible experiment containers with the redone [expfactory](https://expfactory.github.io) software. 
-
 All experiments are run through the [exp_hub.html](exp_hub.html).
 The list of experiments are defined and loaded by [load_experiments.js](static/js/load_experiments.js)
 
@@ -28,3 +26,4 @@ For easy reading, set up each experiment in this way:
       /* Set up jsPsych blocks */
       /* ************************************ */
 
+If you are looking for version 2.0 of the Experiment Factory (reproducible containers) see the [expfactory](https://expfactory.github.io) software. 

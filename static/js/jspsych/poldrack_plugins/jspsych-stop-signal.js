@@ -33,7 +33,7 @@ jsPsych.plugins["stop-signal"] = (function() {
 		// optional parameters
 		trial.is_html = (typeof trial.is_html === 'undefined') ? false : trial.is_html;
 		trial.prompt = (typeof trial.prompt === 'undefined') ? "" : trial.prompt;
-		trial.fixation_default = (typeof trial.fixation_default === 'undefined') ? false : trial.prompt; //does a fixation cross cover the remaining time of the trial
+		trial.fixation_default = (typeof trial.fixation_default === 'undefined') ? false : trial.fixation_default; //does a fixation cross cover the remaining time of the trial
 		trial.fixation_stim = (typeof trial.fixation_stim == 'undefined') ? '<div class = centerbox><div class = fixation>+</div></div>' : trial.fixation_stim
 
 

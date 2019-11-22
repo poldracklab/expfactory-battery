@@ -33,6 +33,8 @@ jsPsych.plugins["stop-signal"] = (function() {
 		// optional parameters
 		trial.is_html = (typeof trial.is_html === 'undefined') ? false : trial.is_html;
 		trial.prompt = (typeof trial.prompt === 'undefined') ? "" : trial.prompt;
+		trial.fixation_default = (typeof trial.fixation_default === 'undefined') ? false : trial.prompt; //does a fixation cross cover the remaining time of the trial
+		trial.fixation_stim = (typeof trial.fixation_stim == 'undefined') ? '<div class = centerbox><div class = fixation>+</div></div>' : trial.fixation_stim
 
 
 		// this array holds handlers from setTimeout calls
@@ -169,6 +171,21 @@ jsPsych.plugins["stop-signal"] = (function() {
 				}, trial.timing_SS+trial.SSD);
 				setTimeoutHandlers.push(t4);
 			}
+		}
+
+		//if toggled, add fixation cross until end of trial
+		if (trial.fixation_default) {
+			var delay = trial.timing_stim
+			if (trial.SS_trial_type.toLowerCase() == 'stop') {
+				delay = Math.max(trial.timing_stim, (trial.SSD + trial.timing_SS))
+			} 
+			var t5 = setTimeout(function() {
+				display_element.append($('<div>', {
+					html: trial.fixation_stim,
+					id: 'jpsych-stop-signal-fixation'
+				}));
+			}, delay);
+			setTimeoutHandlers.push(t5);
 		}
 
 	};

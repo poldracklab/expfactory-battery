@@ -31,6 +31,9 @@ jsPsych.plugins["poldrack-single-stim"] = (function() {
     trial.timing_post_trial = (typeof trial.timing_post_trial === 'undefined') ? 1000 : trial.timing_post_trial;
     trial.is_html = (typeof trial.is_html == 'undefined') ? false : trial.is_html;
     trial.prompt = trial.prompt || "";
+		// optional parameters
+    trial.fixation_default = (typeof trial.fixation_default === 'undefined') ? false : trial.fixation_default; //does a fixation cross cover the remaining time of the trial
+		trial.fixation_stim = (typeof trial.fixation_stim == 'undefined') ? '<div class = centerbox><div class = fixation>+</div></div>' : trial.fixation_stim
 
     // this array holds handlers from setTimeout calls
     // that need to be cleared if the trial ends early
@@ -148,6 +151,18 @@ jsPsych.plugins["poldrack-single-stim"] = (function() {
       }, trial.timing_response);
       setTimeoutHandlers.push(t2);
     }
+
+    //if toggled, add fixation cross until end of trial
+		if (trial.fixation_default) {
+			var delay = trial.timing_stim
+			var t3 = setTimeout(function() {
+				display_element.append($('<div>', {
+					html: trial.fixation_stim,
+					id: 'jpsych-stop-signal-fixation'
+				}));
+			}, delay);
+			setTimeoutHandlers.push(t3);
+		}
 
   };
 

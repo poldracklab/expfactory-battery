@@ -145,3 +145,61 @@ var setup_fmri_run = function(lst, num_ignore = 16, trigger = 84) {
 	}
 	lst.push(fmri_buffer_block)
 }
+
+
+//new CNI fmri setup block and helper variables
+
+var cni_bore_setup = function(lst,prescan_str="<div  class = center-text>Scanner Setup <br><br>Stay as still as possible.<br><br> Do not swallow.</div>", prescan_cont_key=[32],wait_str="<div  class = center-text>Task about to start! <br><br>Stay as still as possible.<br><br> Do not swallow.</div>", wait_cont_key=[84], wait_timing_response=10000 ) {
+    lst.push(cni_prescan(prescan_str, prescan_cont_key))
+    lst.push(cni_trigger_start(wait_str, wait_cont_key))
+    for (var j = 0; j < 1; j++) {
+        lst.push(cni_create_trigger_wait(wait_str, wait_timing_response))
+    }
+    lst.push(fmri_buffer_block)
+}
+
+var cni_prescan = function(str="<div  class = center-text>Scanner Setup <br><br>Stay as still as possible.<br><br> Do not swallow.</div>", cont_key=[32]) {
+	var cni_prescan_block = {
+		type: 'poldrack-text',
+		text: "<div class = centerbox>"+ str + "</div>",
+		cont_key: cont_key,//[32],
+		data: {
+			trial_id: "fmri_scanner_wait"
+		},
+		timing_response: -1,
+		timing_post_trial: 0
+	};
+	return cni_prescan_block
+
+}
+
+var cni_trigger_start = function(str="<div  class = center-text>Task about to start! <br><br>Stay as still as possible.<br><br> Do not swallow.</div>", cont_key=[84]) {
+	var cni_wait_block = {
+		type: 'poldrack-text',
+		text: "<div class = centerbox>"+ str + "</div>",
+		cont_key: cont_key,
+		data: {
+			trial_id: "fmri_trigger_initial"
+		},
+		timing_response: -1,
+		timing_post_trial: 0,
+		response_ends_trial: true
+	};
+	return cni_wait_block
+}
+
+// block to wait for triggers
+var cni_create_trigger_wait = function(str="<div  class = center-text>Task about to start! <br><br>Stay as still as possible.<br><br> Do not swallow.</div>", timing_response=10000) {
+    var fMRI_wait_block = {
+        type: 'poldrack-text',
+        text: "<div class = centerbox>"+ str + "</div>",
+        cont_key: 'none',
+        data: {
+            trial_id: "fmri_trigger_wait"
+        },
+        timing_response: timing_response,
+        timing_post_trial: 0,
+        response_ends_trial: false
+    };
+    return fMRI_wait_block
+}

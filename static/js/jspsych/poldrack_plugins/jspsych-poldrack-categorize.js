@@ -175,8 +175,7 @@ jsPsych.plugins["poldrack-categorize"] = (function() {
 		}
 
     function doFeedback(correct, timeout) {
-      console.log($('#jspsych-stop-signal-fixation'))
-      $('#jspsych-stop-signal-fixation').remove();
+      $('#jspsych-stop-signal-fixation').css('visibility', 'hidden'); 
 
       if (timeout && !trial.show_feedback_on_timeout) {
         display_element.append(trial.timeout_message);

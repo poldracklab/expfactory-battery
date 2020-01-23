@@ -168,13 +168,14 @@ jsPsych.plugins["poldrack-categorize"] = (function() {
 			var t3 = setTimeout(function() {
 				display_element.append($('<div>', {
 					html: trial.fixation_stim,
-					id: 'jpsych-stop-signal-fixation'
+					id: 'jspsych-stop-signal-fixation'
 				}));
 			}, delay);
 			setTimeoutHandlers.push(t3);
 		}
 
     function doFeedback(correct, timeout) {
+      $('#jspsych-stop-signal-fixation').css('visibility', 'hidden'); 
 
       if (timeout && !trial.show_feedback_on_timeout) {
         display_element.append(trial.timeout_message);

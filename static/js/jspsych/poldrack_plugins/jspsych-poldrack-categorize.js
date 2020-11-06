@@ -162,7 +162,7 @@ jsPsych.plugins["poldrack-categorize"] = (function() {
       }, trial.timing_response));
     }
 
-    //if toggled, add fixation cross until end of trial
+    // if toggled, add fixation cross until end of trial
 		if (trial.fixation_default) {
 			var delay = trial.timing_stim
 			var t3 = setTimeout(function() {
